@@ -13,6 +13,7 @@ import java.util.*;
  * Revision:    $Id$ <br>
  * Description: <br>
  */
+
 public class Main {
 
     public static final String BASE_URL = "https://27crags.com/";
@@ -75,35 +76,7 @@ public class Main {
         }
 
         for (String routeLink : routeLinksList) {
-            try {
-                doc = Jsoup.connect(routeLink).timeout(10000).get();
-                try {
-                    Thread.sleep(500);                 //1000 milliseconds is one second.
-                } catch (InterruptedException ex) {
-                    Thread.currentThread().interrupt();
-                }
-            } catch (IOException ex) {
-                System.out.println("route links" + ex.getMessage());
-                return;
-            }
 
-            final String name = doc.select("div.headline h1").first().text();
-            final String desc = doc.select("div.headline h2").first().text();
-
-
-            final String imageLink = doc.select("div.main div.pics img").first().attr("src");
-            Route route = new Route(name, desc, imageLink);
-
-            //            Boulder, 6B+ at Крыша, Stalker in the area of Vyborg, Russian Federation'
-            final String[] split = desc.split(",");
-            final String levelAndSector = split[1];
-            final String[] ls = levelAndSector.split("at");
-            if (ls.length == 2) {
-                route.setLevel(ls[0].trim());
-                route.setSectorName(ls[1].trim());
-            }
-
-            System.out.println(route);
         }
 //        System.out.println(routeLinksList.size());
 //        Route route = new Route()

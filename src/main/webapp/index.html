@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        body,html{
+            margin: 0;
+            padding: 0;
+        }
+        #myCanvas{
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+    </style>
+</head>
+<body>
+<!--<img src="https://d37d73vc0i3fom.cloudfront.net/photos/000/051/51059/large-935f61bd00db.jpg">-->
+<div id="image" style=""></div>
+
+<!--<canvas id="myCanvas"-->
+        <!--style="border:1px solid #d3d3d3;">-->
+    <!--Your browser does not support the canvas element.-->
+<!--</canvas>-->
+
+
+<script src="https://code.jquery.com/jquery-2.1.4.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.js"></script>
+<script>
+    //    [[188,191],[242,155],[287,142],[249,67],[256,29]]', imageWidth=560,
+    //    imageHeight=373
+    var width = 560;
+    var height = 373;
+    var coordinates = [[188, 191], [242, 155], [287, 142], [249, 67], [256, 29]];
+
+    console.log(coordinates.serialize);
+
+    var image = document.getElementById("image");
+    image.style.width = width + 'px';
+    image.style.height = height + 'px';
+    image.style.background = "url('https://d37d73vc0i3fom.cloudfront.net/photos/000/051/51059/large-935f61bd00db.jpg') no-repeat";
+    var pathinfo = [];
+    for(var i = 0; i < coordinates.length; i++){
+        var c = {x: coordinates[i][0], y: coordinates[i][1]};
+        pathinfo.push(c);
+    }
+
+    console.log(pathinfo);
+
+//    var canvas = document.getElementById("myCanvas");
+//    canvas.style.width = width + 'px';
+//    canvas.style.height = height + 'px';
+//    var ctx = canvas.getContext("2d");
+//    ctx.strokeStyle="#FF0000";
+//    var first = coordinates[0];
+////    ctx.moveTo(first[0], first[1]);
+//    console.log(first[0] +"," + first[1]);
+//    for(var i = 1; i < coordinates.length; i++){
+////        ctx.lineTo(coordinates[i][0], coordinates[i][1]);
+////        console.log(coordinates[i][0] + "," + coordinates[i][1]);
+//    }
+//    ctx.moveTo(0,0);
+//    ctx.moveTo(188,120);
+////    ctx.moveTo(188,191);
+//    ctx.lineTo(88,91);
+//    ctx.stroke();
+
+    var divElem2 = d3.select("#image");
+    svgcanvas2 = divElem2.append("svg:svg")
+            .attr("width", 560)
+            .attr("height", 373)
+
+    // (2) Creating path using D3 path data generators
+    // Specify the path points
+//    pathinfo = [{x:188, y:191},
+//        {x:242, y:155},
+//        {x:287, y:142},
+//        {x:249, y:67},
+//        {x:256, y:29},
+//    ];
+    // Specify the function for generating path data
+    var d3line2 = d3.svg.line()
+            .x(function(d){return d.x;})
+            .y(function(d){return d.y;})
+//            .interpolate("linear");
+            .interpolate("basis");
+    // "linear" for piecewise linear segments
+    // Creating path using data in pathinfo and path data generator
+    // d3line.
+    svgcanvas2.append("svg:path")
+            .attr("d", d3line2(pathinfo))
+            .style("stroke-width", 2)
+            .style("stroke", "#ff0000")
+            .style("fill", "none");
+</script>
+
+</body>
+</html>

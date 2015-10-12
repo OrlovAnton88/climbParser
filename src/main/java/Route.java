@@ -14,6 +14,10 @@ public class Route {
     private String level;
     private String sectorName;
 
+    private String dirtyCoordinates;
+    private int imageWidth;
+    private int imageHeight;
+
     public Route(final String name, final String desc, final String imageLink) {
         this.name = name;
         this.desc = desc;
@@ -60,6 +64,30 @@ public class Route {
         this.sectorName = sectorName;
     }
 
+    public String getDirtyCoordinates() {
+        return dirtyCoordinates;
+    }
+
+    public void setDirtyCoordinates(String dirtyCoordinates) {
+        this.dirtyCoordinates = dirtyCoordinates;
+    }
+
+    public int getImageWidth() {
+        return imageWidth;
+    }
+
+    public void setImageWidth(int imageWidth) {
+        this.imageWidth = imageWidth;
+    }
+
+    public int getImageHeight() {
+        return imageHeight;
+    }
+
+    public void setImageHeight(int imageHeight) {
+        this.imageHeight = imageHeight;
+    }
+
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("Route{");
@@ -68,6 +96,9 @@ public class Route {
         sb.append(", imageLink='").append(imageLink).append('\'');
         sb.append(", level='").append(level).append('\'');
         sb.append(", sectorName='").append(sectorName).append('\'');
+        sb.append(", dirtyCoordinates='").append(dirtyCoordinates).append('\'');
+        sb.append(", imageWidth=").append(imageWidth);
+        sb.append(", imageHeight=").append(imageHeight);
         sb.append('}');
         return sb.toString();
     }
