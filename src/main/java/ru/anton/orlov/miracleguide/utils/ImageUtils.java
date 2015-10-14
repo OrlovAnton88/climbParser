@@ -1,3 +1,7 @@
+package ru.anton.orlov.miracleguide.utils;
+
+import ru.anton.orlov.miracleguide.Conf;
+
 import java.io.*;
 import java.net.URL;
 
@@ -6,7 +10,7 @@ import java.net.URL;
  */
 public class ImageUtils {
 
-    private static final String folderPath = "/Users/antonorlov/Documents/java/climbParser/src/main/resources/images/";
+    private static final String folderPath = Conf.RESOURSES_PATH + "images/";
 
     public static File getImage(String src) throws IOException {
 
@@ -26,6 +30,7 @@ public class ImageUtils {
 
         File f = new File(folderPath + name);
         if(f.exists() && !f.isDirectory()) {
+            System.out.println("image already exists");
             return f;
         }
 

@@ -1,3 +1,5 @@
+package ru.anton.orlov.miracleguide.parser.model;
+
 /**
  * Author:      oav <br>
  * Date:        12.10.15, 19:37 <br>
@@ -5,9 +7,8 @@
  * Revision:    $Id$ <br>
  * Description: <br>
  */
-public class Route {
+public class Route extends ParsableEntity {
 
-    private String name;
     private String desc;
     private String imageLink;
 
@@ -18,19 +19,16 @@ public class Route {
     private int imageWidth;
     private int imageHeight;
 
-    public Route(final String name, final String desc, final String imageLink) {
-        this.name = name;
-        this.desc = desc;
-        this.imageLink = imageLink;
+    public Route(String link) {
+        super(link);
     }
 
-    public String getName() {
-        return name;
-    }
+    //    public Route(final String name, final String desc, final String imageLink) {
+//        this.desc = desc;
+//        this.imageLink = imageLink;
+//    }
 
-    public void setName(final String name) {
-        this.name = name;
-    }
+
 
     public String getDesc() {
         return desc;
@@ -90,7 +88,7 @@ public class Route {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("Route{");
+        final StringBuilder sb = new StringBuilder("ru.anton.orlov.miracleguide.parser.model.Route{");
         sb.append("name='").append(name).append('\'');
         sb.append(", desc='").append(desc).append('\'');
         sb.append(", imageLink='").append(imageLink).append('\'');
