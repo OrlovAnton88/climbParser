@@ -1,5 +1,7 @@
 package ru.anton.orlov.miracleguide.parser.model;
 
+import ru.anton.orlov.miracleguide.model.Coordinates;
+
 import java.util.Set;
 
 /**
@@ -15,7 +17,7 @@ import java.util.Set;
  */
 public class Topo extends ParsableEntity {
 
-
+    private Coordinates coordinates;
 
     Set<Route> routes;
 
@@ -35,5 +37,11 @@ public class Topo extends ParsableEntity {
         this.routes = routes;
     }
 
+    public Coordinates getCoordinates() {
+        return coordinates;
+    }
 
+    public void setCoordinates(final Coordinates coordinates) {
+        this.coordinates = coordinates;
+    }
 }

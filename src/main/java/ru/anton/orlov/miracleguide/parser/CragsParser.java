@@ -6,6 +6,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import ru.anton.orlov.miracleguide.Conf;
 import ru.anton.orlov.miracleguide.json.JsonUtils;
+import ru.anton.orlov.miracleguide.model.Coordinates;
 import ru.anton.orlov.miracleguide.parser.model.Area;
 import ru.anton.orlov.miracleguide.parser.model.Route;
 import ru.anton.orlov.miracleguide.parser.model.Topo;
@@ -108,6 +109,41 @@ public class CragsParser {
                 routeSet.add(route);
             }
         }
+
+        //        latitude: 60.750354, longitude: 28.794804
+        final String coordinatesStr = doc.select("#coordinates div.qr div.b8").first().html();
+
+        double latitude = 0.0;
+        double longitude = 0.0;
+        final String[] split = coordinatesStr.split(",");
+        for (String s : split) {
+            if(s.contains("latitude")){
+                final int start = s.indexOf(":")+1;
+                final String lat = s.substring(start, s.length()).replaceAll(" ", "");
+                try {
+                    latitude = Double.valueOf(lat);
+                }catch (NumberFormatException ex){
+                    System.out.println("error convert " + lat + " to double");
+                }
+            }
+            if(s.contains("longitude")){
+                final int start = s.indexOf(":")+1;
+                final String lon = s.substring(start, s.length()).replaceAll(" ", "");
+                try {
+                    longitude = Double.valueOf(lon);
+                }catch (NumberFormatException ex){
+                    System.out.println("error convert " + lon + " to double");
+                }
+            }
+        }
+
+        if(latitude != 0.0 && longitude != 0.0){
+            Coordinates c = new Coordinates(latitude,longitude);
+            topo.setCoordinates(c);
+        }
+
+
+
 
         topo.setRoutes(routeSet);
         int i = topo.getLink().lastIndexOf('/');
