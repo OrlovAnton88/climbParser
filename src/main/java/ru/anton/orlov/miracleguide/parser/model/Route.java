@@ -15,9 +15,7 @@ public class Route extends ParsableEntity {
     private String level;
     private String sectorName;
 
-    private String dirtyCoordinates;
-    private int imageWidth;
-    private int imageHeight;
+    private VectorLine line;;
 
     public Route(String link) {
         super(link);
@@ -62,41 +60,23 @@ public class Route extends ParsableEntity {
         this.sectorName = sectorName;
     }
 
-    public String getDirtyCoordinates() {
-        return dirtyCoordinates;
+    public VectorLine getLine() {
+        return line;
     }
 
-    public void setDirtyCoordinates(String dirtyCoordinates) {
-        this.dirtyCoordinates = dirtyCoordinates;
+    public void setLine(VectorLine line) {
+        this.line = line;
     }
 
-    public int getImageWidth() {
-        return imageWidth;
-    }
-
-    public void setImageWidth(int imageWidth) {
-        this.imageWidth = imageWidth;
-    }
-
-    public int getImageHeight() {
-        return imageHeight;
-    }
-
-    public void setImageHeight(int imageHeight) {
-        this.imageHeight = imageHeight;
-    }
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("ru.anton.orlov.miracleguide.parser.model.Route{");
-        sb.append("name='").append(name).append('\'');
-        sb.append(", desc='").append(desc).append('\'');
+        final StringBuilder sb = new StringBuilder("Route{");
+        sb.append("desc='").append(desc).append('\'');
         sb.append(", imageLink='").append(imageLink).append('\'');
         sb.append(", level='").append(level).append('\'');
         sb.append(", sectorName='").append(sectorName).append('\'');
-        sb.append(", dirtyCoordinates='").append(dirtyCoordinates).append('\'');
-        sb.append(", imageWidth=").append(imageWidth);
-        sb.append(", imageHeight=").append(imageHeight);
+        sb.append(", line=").append(line);
         sb.append('}');
         return sb.toString();
     }

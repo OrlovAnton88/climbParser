@@ -7,9 +7,7 @@ import org.jsoup.select.Elements;
 import ru.anton.orlov.miracleguide.Conf;
 import ru.anton.orlov.miracleguide.json.JsonUtils;
 import ru.anton.orlov.miracleguide.model.Coordinates;
-import ru.anton.orlov.miracleguide.parser.model.Area;
-import ru.anton.orlov.miracleguide.parser.model.Route;
-import ru.anton.orlov.miracleguide.parser.model.Topo;
+import ru.anton.orlov.miracleguide.parser.model.*;
 import ru.anton.orlov.miracleguide.utils.FileUtils;
 import ru.anton.orlov.miracleguide.utils.ImageUtils;
 
@@ -17,10 +15,7 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by antonorlov on 13/10/15.
@@ -117,32 +112,30 @@ public class CragsParser {
         double longitude = 0.0;
         final String[] split = coordinatesStr.split(",");
         for (String s : split) {
-            if(s.contains("latitude")){
-                final int start = s.indexOf(":")+1;
+            if (s.contains("latitude")) {
+                final int start = s.indexOf(":") + 1;
                 final String lat = s.substring(start, s.length()).replaceAll(" ", "");
                 try {
                     latitude = Double.valueOf(lat);
-                }catch (NumberFormatException ex){
+                } catch (NumberFormatException ex) {
                     System.out.println("error convert " + lat + " to double");
                 }
             }
-            if(s.contains("longitude")){
-                final int start = s.indexOf(":")+1;
+            if (s.contains("longitude")) {
+                final int start = s.indexOf(":") + 1;
                 final String lon = s.substring(start, s.length()).replaceAll(" ", "");
                 try {
                     longitude = Double.valueOf(lon);
-                }catch (NumberFormatException ex){
+                } catch (NumberFormatException ex) {
                     System.out.println("error convert " + lon + " to double");
                 }
             }
         }
 
-        if(latitude != 0.0 && longitude != 0.0){
-            Coordinates c = new Coordinates(latitude,longitude);
+        if (latitude != 0.0 && longitude != 0.0) {
+            Coordinates c = new Coordinates(latitude, longitude);
             topo.setCoordinates(c);
         }
-
-
 
 
         topo.setRoutes(routeSet);
@@ -190,13 +183,16 @@ public class CragsParser {
         //get route lines
 
         String coordsForImage = doc.select("script.js-data").html();
+        String coords = null;
         if (coordsForImage.contains("strong_line")) {
             int beforeStart = coordsForImage.lastIndexOf("strong_line");
             int start = coordsForImage.indexOf("[[", beforeStart);
             int end = coordsForImage.indexOf("]]", beforeStart) + 2;
-            String coords = coordsForImage.substring(start, end);
-            route.setDirtyCoordinates(coords);
+            coords = coordsForImage.substring(start, end);
+
+
         }
+
 
         //save image
         File image = null;
@@ -216,14 +212,76 @@ public class CragsParser {
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
-            route.setImageWidth(width);
-            route.setImageHeight(height);
         }
+
+        if (coords != null && width != 0 && height != 0) {
+            Optional<VectorLine> vector = getVector(coords, width, height);
+            if (vector.isPresent()) {
+                route.setLine(vector.get());
+            }
+        }
+
 
         int i = route.getLink().lastIndexOf('/');
         String routeId = route.getLink().substring(i, route.getLink().length());
         String json = JsonUtils.getJson(route);
         FileUtils.saveToFile(json, Conf.RESOURSES_PATH + "json/route", routeId + ".json");
         return route;
+    }
+
+
+    /**
+     * Get VectorLine object from string
+     *
+     * @param points Example: [[340,265],[347,217]]
+     * @return VectorLine object
+     */
+    private static Optional<VectorLine> getVector(final String points, int imageWidth, int imageHeight) {
+
+        String[] xy = points.split("],\\[");
+        List<Point> poins = new ArrayList<>();
+        for (String s : xy) {
+
+            String[] split = s.split(",");
+            String xStr;
+            String yStr;
+
+            if (split.length == 2) {
+                xStr = extractNums(split[0].toCharArray());
+                yStr = extractNums(split[1].toCharArray());
+
+            } else {
+                System.out.println("wrong coordinates");
+                return Optional.empty();
+            }
+            System.out.println("x[" + xStr + "],y[" + yStr + "]");
+            Integer x;
+            Integer y;
+
+            try {
+                x = Integer.valueOf(xStr);
+                y = Integer.valueOf(yStr);
+            } catch (NumberFormatException ex) {
+                System.out.println("ERROR parsing coordinates");
+                return Optional.empty();
+            }
+
+            poins.add(new Point(x, y));
+
+        }
+
+        return Optional.ofNullable(new VectorLine(imageWidth, imageHeight, poins));
+
+
+    }
+
+    private static String extractNums(char[] chars) {
+        String result = "";
+        for (char c : chars) {
+            if (Character.isDigit(c)) {
+                result += c;
+            }
+        }
+        return result;
     }
 }
