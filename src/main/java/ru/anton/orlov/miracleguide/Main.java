@@ -1,9 +1,8 @@
 package ru.anton.orlov.miracleguide;
 
-import ru.anton.orlov.miracleguide.json.JsonUtils;
-import ru.anton.orlov.miracleguide.parser.CragsParser;
-import ru.anton.orlov.miracleguide.parser.model.Area;
-import ru.anton.orlov.miracleguide.utils.FileUtils;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Author:      oav <br>
@@ -20,11 +19,20 @@ public class Main {
     public static void main(String[] args) {
 
 
-        Area area = CragsParser.getArea(CragsParser.BASE_URL + CragsParser.STALKER);
+//        Area area = CragsParser.getArea(CragsParser.BASE_URL + CragsParser.STALKER);
+//
+//        String json = JsonUtils.getJson(area);
+//
+//        FileUtils.saveToFile(json,Conf.RESOURSES_PATH, "stalker.json");
 
-        String json = JsonUtils.getJson(area);
+        String elements[] = { "A", "B", "C", "D", "E" };
+        Set set = new HashSet<>(Arrays.asList(elements));
 
-        FileUtils.saveToFile(json,Conf.RESOURSES_PATH, "stalker.json");
+//        Set set2 = ((Set) ((HashSet) set).clone());
+        Set set2 = new HashSet<>(set);
+        set.remove("A");
+        System.out.println(set);
+        System.out.println(set2);
 
 
     }

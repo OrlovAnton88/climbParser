@@ -14,17 +14,49 @@
             top: 0;
             left: 0;
         }
+        #map { height: 500px; }
     </style>
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.5/leaflet.css" />
 </head>
 <body>
 
-<div id="container">
-    <div id='canvas-container'></div>
-</div>
+<!--<div id="container">-->
+    <!--<div id='canvas-container'></div>-->
+<!--</div>-->
+
+<div id="map"></div>
 
 <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.js"></script>
+<script src="http://cdn.leafletjs.com/leaflet-0.7.5/leaflet.js"></script>
 <script>
+
+
+
+
+setTimeout(initMap(), 1000);
+
+    function initMap(){
+        var map = L.map('map').setView([60.749651, 28.793751], 16);
+
+        L.tileLayer('img/mapTiles/{z}/{x}/{y}.png', {
+            maxZoom: 18,
+            minZoom: 16
+        }).addTo(map);
+
+//        var osmUrl='http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+//        var osmAttrib='Map data © <a href="http://openstreetmap.org">OpenStreetMap</a>';
+
+//    L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+//        attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
+//        maxZoom: 18,
+//        id: 'your.mapbox.project.id',
+//        accessToken: 'your.mapbox.public.access.token'
+//    }).addTo(map);
+//        var osm = new L.TileLayer(osmUrl, {minZoom: 8, maxZoom: 18, attribution: osmAttrib});
+
+        map.addLayer(osm);
+    }
 
     $.getJSON("152294.json", function (data) {
 
