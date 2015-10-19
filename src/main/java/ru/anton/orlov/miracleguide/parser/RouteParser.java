@@ -45,7 +45,7 @@ public class RouteParser implements Callable<Route> {
         try {
             doc = Jsoup.connect(link).timeout(10000).get();
             try {
-                Thread.sleep(500);                 //1000 milliseconds is one second.
+                Thread.sleep(500);
             } catch (InterruptedException ex) {
                 Thread.currentThread().interrupt();
             }

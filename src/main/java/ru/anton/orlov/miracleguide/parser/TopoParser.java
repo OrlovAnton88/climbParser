@@ -59,7 +59,16 @@ public class TopoParser implements Callable<Topo> {
         }
         final Element centerDiv = doc.select("div.centered.t14").first();
         if (centerDiv != null) {
-            List<Route> routes = new ArrayList<Route>();
+
+            final Elements imageNullable = centerDiv.select(".topobox:first-child img");
+            Element topoImage = null;
+            if (!imageNullable.isEmpty()) {
+                topoImage = imageNullable.first();
+                if (topoImage != null) {
+                    topo.setImageLink(topoImage.attr("src"));
+                }
+            }
+
             final Elements r = centerDiv.select("ol li");
 
             int taskCounter = 0;
