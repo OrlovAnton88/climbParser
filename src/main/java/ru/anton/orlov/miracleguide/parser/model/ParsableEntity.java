@@ -9,6 +9,8 @@ public abstract class ParsableEntity {
 
     protected String name;
 
+    protected String imageLink;
+
 
     public ParsableEntity(String link) {
         this.link = link;
@@ -33,6 +35,14 @@ public abstract class ParsableEntity {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getImageLink() {
+        return imageLink;
+    }
+
+    public void setImageLink(final String imageLink) {
+        this.imageLink = imageLink;
     }
 
     @Override

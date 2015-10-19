@@ -10,21 +10,15 @@ package ru.anton.orlov.miracleguide.parser.model;
 public class Route extends ParsableEntity {
 
     private String desc;
-    private String imageLink;
 
     private String level;
     private String sectorName;
 
-    private VectorLine line;;
+    private VectorLine line;
 
     public Route(String link) {
         super(link);
     }
-
-    //    public Route(final String name, final String desc, final String imageLink) {
-//        this.desc = desc;
-//        this.imageLink = imageLink;
-//    }
 
 
 
@@ -34,14 +28,6 @@ public class Route extends ParsableEntity {
 
     public void setDesc(final String desc) {
         this.desc = desc;
-    }
-
-    public String getImageLink() {
-        return imageLink;
-    }
-
-    public void setImageLink(final String imageLink) {
-        this.imageLink = imageLink;
     }
 
     public String getLevel() {
@@ -68,12 +54,10 @@ public class Route extends ParsableEntity {
         this.line = line;
     }
 
-
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("Route{");
         sb.append("desc='").append(desc).append('\'');
-        sb.append(", imageLink='").append(imageLink).append('\'');
         sb.append(", level='").append(level).append('\'');
         sb.append(", sectorName='").append(sectorName).append('\'');
         sb.append(", line=").append(line);

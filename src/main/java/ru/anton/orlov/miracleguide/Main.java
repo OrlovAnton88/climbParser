@@ -1,8 +1,10 @@
 package ru.anton.orlov.miracleguide;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
+import ru.anton.orlov.miracleguide.json.JsonUtils;
+import ru.anton.orlov.miracleguide.parser.CragsParser;
+import ru.anton.orlov.miracleguide.parser.CragsParserAsync;
+import ru.anton.orlov.miracleguide.parser.model.Area;
+import ru.anton.orlov.miracleguide.utils.FileUtils;
 
 /**
  * Author:      oav <br>
@@ -14,10 +16,7 @@ import java.util.Set;
 
 public class Main {
 
-
-
     public static void main(String[] args) {
-
 
 //        Area area = CragsParser.getArea(CragsParser.BASE_URL + CragsParser.STALKER);
 //
@@ -25,15 +24,57 @@ public class Main {
 //
 //        FileUtils.saveToFile(json,Conf.RESOURSES_PATH, "stalker.json");
 
-        String elements[] = { "A", "B", "C", "D", "E" };
-        Set set = new HashSet<>(Arrays.asList(elements));
+//        String elements[] = { "A", "B", "C", "D", "E" };
+//        Set set = new HashSet<>(Arrays.asList(elements));
+//
+////        Set set2 = ((Set) ((HashSet) set).clone());
+//        Set set2 = new HashSet<>(set);
+//        set.remove("A");
+//        System.out.println(set);
+//        System.out.println(set2);
 
-//        Set set2 = ((Set) ((HashSet) set).clone());
-        Set set2 = new HashSet<>(set);
-        set.remove("A");
-        System.out.println(set);
-        System.out.println(set2);
+        final long start = System.currentTimeMillis();
+        CragsParserAsync async = new CragsParserAsync();
+        final Area area = async.getArea(CragsParser.BASE_URL + CragsParser.MONREPO);
 
+        String json = JsonUtils.getJson(area);
+
+        FileUtils.saveToFile(json, Conf.RESOURSES_PATH, "monrepo.json");
+
+        final long end = System.currentTimeMillis();
+
+        System.out.println("Done in " + (end - start) + " millis");
+
+//        Done in 46121 millis
+
+//        final long start = System.currentTimeMillis();
+//
+//        CragsParser.getArea(CragsParser.BASE_URL + CragsParser.STALKER);
+//
+//        final long end = System.currentTimeMillis();
+//
+//        System.out.println("Done in " + (end - start) + " millis");
+
+//        Topo topo = new Topo("https://27crags.com//crags/stalker/topos/17348","Шило");
+//        FutureTask<Topo> task = new FutureTask<Topo>(new TopoParser(topo));
+//
+//        ExecutorService executor = Executors.newFixedThreadPool(1);
+//        executor.execute(task);
+//
+//        executor.shutdown();
+//        try {
+//            executor.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
+//        } catch (InterruptedException e) {
+//            System.out.println(e.getMessage());
+//        }
+//
+//        try {
+//            System.out.println(task.get());
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        } catch (ExecutionException e) {
+//            e.printStackTrace();
+//        }
 
     }
 

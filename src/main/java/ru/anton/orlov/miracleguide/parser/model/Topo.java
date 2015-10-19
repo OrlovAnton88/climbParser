@@ -44,4 +44,13 @@ public class Topo extends ParsableEntity {
     public void setCoordinates(final Coordinates coordinates) {
         this.coordinates = coordinates;
     }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("Topo{");
+        sb.append("coordinates=").append(coordinates);
+        sb.append(", routes=").append(routes);
+        sb.append('}');
+        return sb.toString();
+    }
 }

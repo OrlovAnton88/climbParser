@@ -23,18 +23,18 @@ import java.util.*;
 public class CragsParser {
 
     public static final String BASE_URL = "https://27crags.com/";
-    public static final String STALKER = "crags/stalker/";
-    public static final String MONREPO = "crags/monrepo";
-    public static final String KUB = "crags/kub";
+    public static final String STALKER  = "crags/stalker/";
+    public static final String MONREPO  = "crags/monrepo";
+    public static final String KUB      = "crags/kub";
 
 
     public static Area getArea(final String areaLink) {
+
         Area area = new Area(areaLink);
         fillArea(area);
         return area;
 
     }
-
 
     private static void fillArea(final Area area) {
 
