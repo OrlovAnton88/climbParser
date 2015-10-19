@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+        }
+
+        #canvas-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+    </style>
+
+</head>
+<body>
+
+<div id="container">
+    <div id='canvas-container'></div>
+</div>
+
+<script src="https://code.jquery.com/jquery-2.1.4.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.js"></script>
+<script src="js/image.js"></script>
+<script>
+    //    drawImageWithPath("152294.json","container");
+
+    drawImage("container", "https://d37d73vc0i3fom.cloudfront.net/photos/000/087/87112/large-d4da9f5505d5.jpg");
+
+    $("img").load(function () {
+        var $img = $("img");
+        var imageWidth = $img.width();
+        var imageHeight = $img.height();
+        console.log("width[" + imageWidth + "], height[" + imageHeight + "]");
+
+        var $palet = $("<div id='palet'> </div>");
+
+        $palet.appendTo("#container");
+        $palet.width(imageWidth);
+        $palet.height(imageHeight);
+        $palet.css({"positon" : "fixed", "top" : ""})
+
+    });
+
+
+
+
+</script>
+</body>
+
+</html>

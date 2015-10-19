@@ -2,6 +2,10 @@ package ru.anton.orlov.miracleguide.parser.model;
 
 import ru.anton.orlov.miracleguide.model.Coordinates;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import java.util.Set;
 
 /**
@@ -15,11 +19,18 @@ import java.util.Set;
 /**
  * Set of sectors
  */
+@Entity
 public class Topo extends ParsableEntity {
 
+    @OneToOne(cascade= CascadeType.ALL)
     private Coordinates coordinates;
 
+    @OneToMany(cascade= CascadeType.ALL)
     Set<Route> routes;
+
+    public Topo() {
+        super();
+    }
 
     public Topo(String link) {
         super(link);

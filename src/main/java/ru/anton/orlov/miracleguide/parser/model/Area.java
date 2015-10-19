@@ -1,5 +1,8 @@
 package ru.anton.orlov.miracleguide.parser.model;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import java.util.Set;
 
 /**
@@ -9,9 +12,15 @@ import java.util.Set;
  * Revision:    $Id$ <br>
  * Description: <br>
  */
+@Entity
 public class Area  extends ParsableEntity {
 
+    @OneToMany(cascade= CascadeType.ALL)
     private Set<Topo> topos;
+
+    public Area() {
+        super();
+    }
 
     public Area(String link) {
         super(link);

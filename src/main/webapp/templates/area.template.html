@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+{{#allAreas}}
+{{name}}
+<ul>
+    {{#topos}}
+    <li>{{name}}</li>
+    <ul>
+        {{#routes}}
+
+        <li>{{name}}</li>
+        {{/routes}}
+
+    </ul>
+    {{/topos}}
+</ul>
+</ul>
+{{/allAreas}}
+</body>
+</html>

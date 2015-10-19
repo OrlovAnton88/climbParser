@@ -1,13 +1,28 @@
 package ru.anton.orlov.miracleguide.parser.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
 /**
  * Created by antonorlov on 16/10/15.
  */
+@Entity
 public class Point {
 
-    int x;
-    int y;
+    @Id
+    @GeneratedValue
+    private Long id;
 
+    @Column
+    private int x;
+    @Column
+    private int y;
+
+    protected Point(){
+
+    }
     public Point(int x, int y) {
         this.x = x;
         this.y = y;

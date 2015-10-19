@@ -1,8 +1,8 @@
 package ru.anton.orlov.miracleguide.utils;
 
-import java.io.BufferedWriter;
-import java.io.IOException;
+import java.io.*;
 import java.nio.charset.Charset;
+import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -13,10 +13,10 @@ import java.nio.file.Paths;
 public class FileUtils {
 
 
-    public static void saveToFile(String text,String path, String fileName){
+    public static void saveToFile(String text, String path, String fileName) {
 
         //Creating a new file
-        Path newFile = Paths.get(path,fileName);
+        Path newFile = Paths.get(path, fileName);
         try {
             Files.deleteIfExists(newFile);
             newFile = Files.createFile(newFile);
@@ -25,12 +25,30 @@ public class FileUtils {
         }
 
         //Writing to file
-        try(BufferedWriter writer = Files.newBufferedWriter(newFile, Charset.defaultCharset())){
+        try (BufferedWriter writer = Files.newBufferedWriter(newFile, Charset.defaultCharset())) {
             writer.append(text);
             writer.flush();
-        }catch(IOException exception){
+        } catch (IOException exception) {
             System.out.println("Error writing to file");
         }
 
+    }
+
+    public static String readFile(final String filename) {
+        Path path = FileSystems.getDefault().getPath(filename);
+        StringBuilder content = new StringBuilder();
+        try {
+            InputStream in = Files.newInputStream(path);
+            BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+
+            String line = null;
+            while ((line = reader.readLine()) != null) {
+                content.append(line);
+
+            }
+        }catch (IOException ex){
+            System.out.println("ERROR reading file["+filename+"] " +  ex.getMessage());
+        }
+        return content.toString();
     }
 }

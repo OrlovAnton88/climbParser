@@ -1,5 +1,10 @@
 package ru.anton.orlov.miracleguide.parser.model;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.OneToOne;
+
 /**
  * Author:      oav <br>
  * Date:        12.10.15, 19:37 <br>
@@ -7,19 +12,29 @@ package ru.anton.orlov.miracleguide.parser.model;
  * Revision:    $Id$ <br>
  * Description: <br>
  */
+@Entity
 public class Route extends ParsableEntity {
 
+    @Column
     private String desc;
 
+    @Column
     private String level;
+
+    //todo: do we need below?
+    @Column
     private String sectorName;
 
+    @OneToOne(cascade= CascadeType.ALL)
     private VectorLine line;
+
+    public Route() {
+        super();
+    }
 
     public Route(String link) {
         super(link);
     }
-
 
 
     public String getDesc() {

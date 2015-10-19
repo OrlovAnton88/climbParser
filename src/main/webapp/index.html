@@ -58,79 +58,13 @@ setTimeout(initMap(), 1000);
         map.addLayer(osm);
     }
 
-    $.getJSON("152294.json", function (data) {
-
-        //todo: on image change size listener
-        drawImage("container", data.imageLink);
-
-        $("#container img").load(function () {
-            var imageWidth = $(this).width();
-            var imageHeight = $(this).height();
-            drawLine("container", data.line, imageWidth, imageHeight)
-        });
 
 
-    });
-
-    function drawImage(containerId, imagePath) {
-        var imageName = getImageName(imagePath);
-        $("#" + containerId).append($("<img>").attr({"src": imageName, "width": "500px"}));
-
-    }
 
 
-    function drawLine(containerId, lineObject, imageWidth, imageHeight) {
-        var plotWindth = lineObject.plotWindth;
-        var plotHeight = lineObject.plotHeight;
-        var points = lineObject.points;
-
-        var ratio = getRatio(imageWidth, plotWindth);
-
-        if (ratio !== 1) {
-            points.forEach(function (point) {
-                point.x = point.x * ratio;
-                point.y = point.y * ratio;
-            });
-        }
-
-        var canvasContainer = d3.select("#canvas-container");
-
-        var canvas = canvasContainer.append("svg:svg")
-                .attr("width", imageWidth)
-                .attr("height", imageHeight);
 
 
-        var d3line2 = d3.svg.line()
-                .x(function (d) {
-                    return d.x;
-                })
-                .y(function (d) {
-                    return d.y;
-                })
-//            .interpolate("linear");
-                .interpolate("basis");
 
-
-        canvas.append("svg:path")
-                .attr("d", d3line2(points))
-                .style("stroke-width", 2)
-                .style("stroke", "#ff0000")
-                .style("fill", "none");
-
-
-    }
-
-    function getImageName(imagePath) {
-        var start = imagePath.lastIndexOf("/");
-        return imagePath.substring(start + 1, imagePath.length);
-    }
-
-    function getRatio(imageWidth, plotWindth) {
-        if (imageWidth !== plotWindth) {
-            return imageWidth / plotWindth;
-        }
-        return 1;
-    }
 
 </script>
 

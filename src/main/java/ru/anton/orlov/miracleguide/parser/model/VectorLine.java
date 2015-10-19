@@ -1,17 +1,29 @@
 package ru.anton.orlov.miracleguide.parser.model;
 
+import javax.persistence.*;
 import java.util.List;
 
 /**
  * Created by antonorlov on 16/10/15.
  */
+@Entity
 public class VectorLine {
 
-    int plotWindth;
-    int plotHeight;
+    @Id
+    @GeneratedValue
+    private Long id;
 
-    List<Point> points;
+    @Column
+    private int plotWindth;
+    @Column
+    private int plotHeight;
 
+    @OneToMany(cascade= CascadeType.ALL)
+    private List<Point> points;
+
+    protected VectorLine(){
+
+    }
 
     public VectorLine(int plotWindth, int plotHeight, List<Point> points) {
         this.plotWindth = plotWindth;

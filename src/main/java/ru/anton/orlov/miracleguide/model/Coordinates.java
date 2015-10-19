@@ -1,5 +1,10 @@
 package ru.anton.orlov.miracleguide.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
 /**
  * Author:      oav <br>
  * Date:        15.10.15, 15:30 <br>
@@ -7,11 +12,21 @@ package ru.anton.orlov.miracleguide.model;
  * Revision:    $Id$ <br>
  * Description: <br>
  */
+@Entity
 public class Coordinates {
 
+    @Id
+    @GeneratedValue
+    private Long id;
+
+    @Column
     private double latitude;
 
+    @Column
     private double longitude;
+
+    public Coordinates() {
+    }
 
     public Coordinates(final double latitude, final double longitude) {
         this.latitude = latitude;
