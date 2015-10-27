@@ -2,8 +2,11 @@ package ru.anton.orlov.miracleguide.parser;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ru.anton.orlov.miracleguide.Conf;
 import ru.anton.orlov.miracleguide.json.JsonUtils;
+import ru.anton.orlov.miracleguide.parser.model.Area;
 import ru.anton.orlov.miracleguide.parser.model.Point;
 import ru.anton.orlov.miracleguide.parser.model.Route;
 import ru.anton.orlov.miracleguide.parser.model.VectorLine;
@@ -28,10 +31,15 @@ import java.util.concurrent.Callable;
  */
 public class RouteParser implements Callable<Route> {
 
-    private Route route;
+    private static final Logger logger = LoggerFactory.getLogger(RouteParser.class);
 
-    public RouteParser(final Route route) {
+
+    private Route route;
+    private Area area;
+
+    public RouteParser(final Route route, final Area area) {
         this.route = route;
+        this.area = area;
     }
 
     @Override
@@ -87,7 +95,7 @@ public class RouteParser implements Callable<Route> {
         //save image
         File image = null;
         try {
-            image = ImageUtils.getImage(route.getImageLink());
+            image = ImageUtils.getImage(route.getImageLink(),area.getTranslitName());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -100,7 +108,7 @@ public class RouteParser implements Callable<Route> {
                 width = img.getWidth();
                 height = img.getHeight();
             } catch (IOException ex) {
-                ex.printStackTrace();
+                logger.error("Error reading file["+image.getName()+"]", ex.getCause());
             }
         }
 

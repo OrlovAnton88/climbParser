@@ -80,7 +80,7 @@ public class CragsParserAsync {
                 Topo topo = new Topo(topoLink, name);
                 //todo:
 
-                FutureTask<Topo> task = new FutureTask<Topo>(new TopoParser(topo));
+                FutureTask<Topo> task = new FutureTask<Topo>(new TopoParser(topo, area));
                 taskList.add(task);
                 executor.execute(task);
                 System.out.println(taskCounter + " TOPO task go to execution");

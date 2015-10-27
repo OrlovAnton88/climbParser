@@ -7,6 +7,7 @@ import org.jsoup.select.Elements;
 import ru.anton.orlov.miracleguide.Conf;
 import ru.anton.orlov.miracleguide.json.JsonUtils;
 import ru.anton.orlov.miracleguide.model.Coordinates;
+import ru.anton.orlov.miracleguide.parser.model.Area;
 import ru.anton.orlov.miracleguide.parser.model.Route;
 import ru.anton.orlov.miracleguide.parser.model.Topo;
 import ru.anton.orlov.miracleguide.utils.FileUtils;
@@ -30,9 +31,11 @@ public class TopoParser implements Callable<Topo> {
     public static final String BASE_URL = "https://27crags.com/";
 
     private Topo topo;
+    private Area area;
 
-    public TopoParser(final Topo topo) {
+    public TopoParser(final Topo topo, final Area area) {
         this.topo = topo;
+        this.area =area;
     }
 
     @Override
@@ -81,7 +84,7 @@ public class TopoParser implements Callable<Topo> {
                 final String routeLink = element.select("a").first().attr("href");
                 Route route = new Route(BASE_URL + routeLink);
 
-                FutureTask<Route> task = new FutureTask<Route>(new RouteParser(route));
+                FutureTask<Route> task = new FutureTask<Route>(new RouteParser(route,area));
                 taskList.add(task);
                 executor.execute(task);
                 System.out.println(taskCounter + " route task go to execution");

@@ -5,21 +5,33 @@
     <title></title>
 </head>
 <body>
-{{#allAreas}}
-{{name}}
-<ul>
+<table border="1">
+    {{#allAreas}}
+    <tr style="background-color: orange">
+        <td colspan="2">{{name}}</td>
+        <td colspan="2">{{translitName}}</td>
+        <td><a href="{{imageLink}}"><img src="{{imageLink}}" width="100"> </a></td>
+        <td><a href="{{link}}"> {{link}}</a></td>
+    </tr>
     {{#topos}}
-    <li>{{name}}</li>
-    <ul>
-        {{#routes}}
-
-        <li>{{name}}</li>
-        {{/routes}}
-
-    </ul>
+    <tr style="background-color: aqua">
+        <td colspan="" >{{name}}</td>
+        <td colspan="" >{{translitName}}</td>
+        <td><a href="{{imageLink}}"><img src="{{imageLink}}" width="100"></a></td>
+        <td><a href="{{link}}"> {{link}}</a></td>
+    </tr>
+    {{#routes}}
+    <tr>
+        <td>{{name}}</td>
+        <td>{{translitName}}</td>
+        <td><a href="{{imageLink}}"><img src="{{imageLink}}" width="100"></a></td>
+        <td><a href="{{link}}"> {{link}}</a></td>
+        <td>{{line.points}}</td>
+    </tr>
+    {{/routes}}
     {{/topos}}
-</ul>
-</ul>
-{{/allAreas}}
+    {{/allAreas}}
+
+</table>
 </body>
 </html>

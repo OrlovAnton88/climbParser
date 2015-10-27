@@ -43,4 +43,14 @@ public class Point {
     public void setY(int y) {
         this.y = y;
     }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("Point{");
+        sb.append("id=").append(id);
+        sb.append(", x=").append(x);
+        sb.append(", y=").append(y);
+        sb.append('}');
+        return sb.toString();
+    }
 }

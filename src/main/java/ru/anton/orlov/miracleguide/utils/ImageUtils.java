@@ -12,7 +12,7 @@ public class ImageUtils {
 
     private static final String folderPath = Conf.RESOURSES_PATH + "images/";
 
-    public static File getImage(String src) throws IOException {
+    public static File getImage(String src, String subFolder) throws IOException {
 
         String folder = null;
 
@@ -28,8 +28,8 @@ public class ImageUtils {
 
         System.out.println(name);
 
-        File f = new File(folderPath + name);
-        if(f.exists() && !f.isDirectory()) {
+        File f = new File(folderPath + subFolder+ "/" + name);
+        if (f.exists() && !f.isDirectory()) {
             System.out.println("image already exists");
             return f;
         }
@@ -38,7 +38,19 @@ public class ImageUtils {
         URL url = new URL(src);
         InputStream in = url.openStream();
 
-        OutputStream out = new BufferedOutputStream(new FileOutputStream(folderPath + name));
+        //check if folder exists
+
+        File theDir = new File(folderPath + subFolder);
+        if (!theDir.exists()) {
+            try{
+                theDir.mkdir();
+            }
+            catch(SecurityException se){
+                //handle it
+            }
+        }
+
+        OutputStream out = new BufferedOutputStream(new FileOutputStream(folderPath + subFolder + "/" + name));
 
         for (int b; (b = in.read()) != -1; ) {
             out.write(b);
@@ -47,6 +59,10 @@ public class ImageUtils {
         in.close();
 
         return new File(folderPath + name);
+    }
 
+    public static String getImageName(final String link) {
+        int start = link.lastIndexOf("/");
+        return link.substring(start + 1, link.length());
     }
 }

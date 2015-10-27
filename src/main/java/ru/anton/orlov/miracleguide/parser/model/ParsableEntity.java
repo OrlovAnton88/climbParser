@@ -1,5 +1,8 @@
 package ru.anton.orlov.miracleguide.parser.model;
 
+import ru.anton.orlov.miracleguide.utils.ImageUtils;
+import ru.anton.orlov.miracleguide.utils.StringUtils;
+
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -22,7 +25,13 @@ public abstract class ParsableEntity {
     protected String name;
 
     @Column
+    protected String translitName;
+
+    @Column
     protected String imageLink;
+
+    @Column
+    protected String imageName;
 
     protected ParsableEntity() {
     }
@@ -34,6 +43,9 @@ public abstract class ParsableEntity {
     public ParsableEntity(String link, String name) {
         this.link = link;
         this.name = name;
+        if(name!=null){
+            this.translitName = StringUtils.transliterate(StringUtils.removeWhitespaces(name)).toLowerCase();
+        }
     }
 
     public String getLink() {
@@ -58,6 +70,28 @@ public abstract class ParsableEntity {
 
     public void setImageLink(final String imageLink) {
         this.imageLink = imageLink;
+    }
+
+    public String getTranslitName() {
+        if(translitName == null){
+            translitName =  StringUtils.transliterate(StringUtils.removeWhitespaces(name)).toLowerCase();
+        }
+        return translitName;
+    }
+
+    public void setTranslitName(String translitName) {
+        this.translitName = translitName;
+    }
+
+    public String getImageName() {
+        if(imageName == null && imageLink != null){
+            imageName = ImageUtils.getImageName(imageLink);
+        }
+        return imageName;
+    }
+
+    public void setImageName(String imageName) {
+        this.imageName = imageName;
     }
 
     @Override

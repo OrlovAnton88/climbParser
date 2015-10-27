@@ -9,7 +9,6 @@ import ru.anton.orlov.miracleguide.json.JsonUtils;
 import ru.anton.orlov.miracleguide.model.Coordinates;
 import ru.anton.orlov.miracleguide.parser.model.*;
 import ru.anton.orlov.miracleguide.utils.FileUtils;
-import ru.anton.orlov.miracleguide.utils.ImageUtils;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -196,11 +195,11 @@ public class CragsParser {
 
         //save image
         File image = null;
-        try {
-            image = ImageUtils.getImage(route.getImageLink());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        try {
+////            image = ImageUtils.getImage(route.getImageLink());
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
 
         int width = 0;
         int height = 0;
