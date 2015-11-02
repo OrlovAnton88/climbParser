@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<h1>Доступные для добавления районы</h1>
+
+{{#areas}}
+<li>
+    {{key}} {{#unless value}}<a href="add_to_db?name={{key}}">Добавить {{/unless}}</a>
+</li>
+{{/areas}}
+</ul>
+</body>
+</html>

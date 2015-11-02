@@ -1,15 +1,13 @@
 package ru.anton.orlov.miracleguide.service;
 
-import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.anton.orlov.miracleguide.parser.model.Area;
 import ru.anton.orlov.miracleguide.repository.AreaRepository;
-import ru.anton.orlov.miracleguide.utils.FileUtils;
 
-import javax.annotation.PostConstruct;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Created by antonorlov on 20/10/15.
@@ -22,26 +20,19 @@ public class AreaService {
     private AreaRepository areaRepository;
 
 
-    @PostConstruct
-    public void postConstruct() {
-
-        String stalker = FileUtils.readFile("/Users/antonorlov/Documents/java/climbParser/src/main/resources/stalker.json");
-
-        Area stakerArea = new Gson().fromJson(stalker, Area.class);
-
-        areaRepository.save(stakerArea);
-
-        String monrepo = FileUtils.readFile("/Users/antonorlov/Documents/java/climbParser/src/main/resources/monrepo.json");
-
-        Area monrepoArea = new Gson().fromJson(monrepo, Area.class);
-
-        areaRepository.save(monrepoArea);
-
+    @Transactional
+    public List<Area> getAllAreas(){
+        return areaRepository.findAll();
     }
 
 
     @Transactional
-    public List<Area> getAllAreas(){
-        return areaRepository.findAll();
+    public void saveArea(final Area area){
+        areaRepository.save(area);
+    }
+
+
+    public Optional<Area> getArea(String name){
+        return Optional.ofNullable(areaRepository.findOneByName(name));
     }
 }

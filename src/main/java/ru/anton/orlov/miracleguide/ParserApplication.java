@@ -20,7 +20,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @Configuration
 @EnableAutoConfiguration(exclude = MustacheAutoConfiguration.class)
 @EnableTransactionManagement
-
 @ComponentScan
 public class ParserApplication {
 

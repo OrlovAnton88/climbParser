@@ -167,7 +167,7 @@ public class CragsParser {
         final String imageLink = doc.select("div.main div.pics img").first().attr("src");
 
         route.setName(name);
-        route.setDesc(desc);
+        route.setDescription(desc);
         route.setImageLink(imageLink);
 
         //Boulder, 6B+ at Крыша, Stalker in the area of Vyborg, Russian Federation'

@@ -16,7 +16,7 @@ import javax.persistence.OneToOne;
 public class Route extends ParsableEntity {
 
     @Column
-    private String desc;
+    private String description;
 
     @Column
     private String level;
@@ -37,12 +37,12 @@ public class Route extends ParsableEntity {
     }
 
 
-    public String getDesc() {
-        return desc;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDesc(final String desc) {
-        this.desc = desc;
+    public void setDescription(final String description) {
+        this.description = description;
     }
 
     public String getLevel() {
@@ -72,7 +72,7 @@ public class Route extends ParsableEntity {
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("Route{");
-        sb.append("desc='").append(desc).append('\'');
+        sb.append("description='").append(description).append('\'');
         sb.append(", level='").append(level).append('\'');
         sb.append(", sectorName='").append(sectorName).append('\'');
         sb.append(", line=").append(line);

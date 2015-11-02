@@ -8,4 +8,6 @@ import ru.anton.orlov.miracleguide.parser.model.Area;
  */
 public interface AreaRepository extends JpaRepository<Area, Long> {
 
+    public Area findOneByName(String name);
+
 }

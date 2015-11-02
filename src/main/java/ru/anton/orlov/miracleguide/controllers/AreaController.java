@@ -32,4 +32,9 @@ public class AreaController {
         mv.addObject("allAreas",allAreas);
         return mv;
     }
+
+//    @ResponseBody
+//    public String getJson(){
+//
+//    }
 }

@@ -68,7 +68,7 @@ public class RouteParser implements Callable<Route> {
         final String imageLink = doc.select("div.main div.pics img").first().attr("src");
 
         route.setName(name);
-        route.setDesc(desc);
+        route.setDescription(desc);
         route.setImageLink(imageLink);
 
         //Boulder, 6B+ at Крыша, Stalker in the area of Vyborg, Russian Federation'
@@ -108,7 +108,7 @@ public class RouteParser implements Callable<Route> {
                 width = img.getWidth();
                 height = img.getHeight();
             } catch (IOException ex) {
-                logger.error("Error reading file["+image.getName()+"]", ex.getCause());
+                logger.error("Error reading file[" + image.getName() + "]", ex.getCause());
             }
         }
 
