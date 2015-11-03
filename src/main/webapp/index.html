@@ -3,9 +3,31 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title></title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" type="text/css" rel="stylesheet">
 </head>
-<body>
-<a href="area">Таблица районов</a>
-<a href="availableAreas">Добавить json</a>
+<body ng-app="MiracleGuideApp">
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-2">
+            <ul class="nav nav-pills nav-stacked">
+                <li class="active"><a href="/">Главная</a></li>
+                <li><a href="area">Таблица районов</a></li>
+                <li><a href="availableAreas">Добавить json</a></li>
+            </ul>
+        </div>
+        <div class="col-md-10" ng-controller="areasController">
+
+            <ul class="list-group">
+                <li class="list-group-item" ng-repeat="area in areaList">{{area.name}}</li>
+            </ul>
+
+        </div>
+    </div>
+</div>
+<!--Write some text in textbox:-->
+<!--<input type="text" ng-model="sometext" />-->
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
+<script type="text/javascript" src="js/app.js"></script>
+<script type="text/javascript" src="js/controllers.js"></script>
 </body>
 </html>

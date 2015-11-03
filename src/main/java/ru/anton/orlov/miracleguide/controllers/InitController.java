@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import ru.anton.orlov.miracleguide.Conf;
 import ru.anton.orlov.miracleguide.parser.model.Area;
 import ru.anton.orlov.miracleguide.service.AreaService;
 import ru.anton.orlov.miracleguide.utils.FileUtils;
@@ -31,16 +32,15 @@ public class InitController {
     public ModelAndView available() {
 
         Map<String, Boolean> map = new HashMap<>();
-        List<String> areas = new ArrayList<>();
 
-        String stalker = FileUtils.readFile("/Users/antonorlov/Documents/java/climbParser/src/main/resources/stalker.json");
+        String stalker = FileUtils.readFile(Conf.RESOURSES_PATH + "stalker.json");
         if(stalker !=null && !stalker.isEmpty()){
             Area area  = new Gson().fromJson(stalker, Area.class);
             Optional<Area> areaDb = areaService.getArea(area.getName());
             map.put(area.getTranslitName(),areaDb.isPresent());
         }
 
-        String monrepo = FileUtils.readFile("/Users/antonorlov/Documents/java/climbParser/src/main/resources/monrepo.json");
+        String monrepo = FileUtils.readFile(Conf.RESOURSES_PATH + "monrepo.json");
         if(monrepo !=null && !monrepo.isEmpty()){
             Area area  = new Gson().fromJson(monrepo, Area.class);
             Optional<Area> areaDb = areaService.getArea(area.getName());
@@ -48,7 +48,7 @@ public class InitController {
 
         }
 
-        String  triangular = FileUtils.readFile("/Users/antonorlov/Documents/java/climbParser/src/main/resources/triangular_lake.json");
+        String  triangular = FileUtils.readFile(Conf.RESOURSES_PATH + "triangular_lake.json");
         if(triangular !=null && !triangular.isEmpty()){
 //            areas.add("triangular_lake");
             Area area  = new Gson().fromJson(triangular, Area.class);
@@ -64,12 +64,12 @@ public class InitController {
     @RequestMapping(value = "/add_to_db", method = RequestMethod.GET)
     public ModelAndView available(@RequestParam(value = "name", required = true) String name) {
 
-        String area = FileUtils.readFile("/Users/antonorlov/Documents/java/climbParser/src/main/resources/"+ name +".json");
+        String area = FileUtils.readFile(Conf.RESOURSES_PATH + name +".json");
 
         Area areaObj = new Gson().fromJson(area, Area.class);
         areaService.saveArea(areaObj);
 
-        return new ModelAndView("redirect: /availableAreas");
+        return new ModelAndView("redirect:/availableAreas");
     }
 
 

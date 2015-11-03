@@ -25,6 +25,8 @@ public class Topo extends ParsableEntity {
     @OneToOne(cascade= CascadeType.ALL)
     private Coordinates coordinates;
 
+    private Long areaId;
+
     @OneToMany(cascade= CascadeType.ALL)
     Set<Route> routes;
 
@@ -56,10 +58,19 @@ public class Topo extends ParsableEntity {
         this.coordinates = coordinates;
     }
 
+    public Long getAreaId() {
+        return areaId;
+    }
+
+    public void setAreaId(final Long areaId) {
+        this.areaId = areaId;
+    }
+
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("Topo{");
         sb.append("coordinates=").append(coordinates);
+        sb.append(", areaId=").append(areaId);
         sb.append(", routes=").append(routes);
         sb.append('}');
         return sb.toString();

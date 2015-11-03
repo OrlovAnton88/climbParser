@@ -19,6 +19,12 @@ public class Route extends ParsableEntity {
     private String description;
 
     @Column
+    private Long areaId;
+
+    @Column
+    private Long topoId;
+
+    @Column
     private String level;
 
     //todo: do we need below?
@@ -69,10 +75,28 @@ public class Route extends ParsableEntity {
         this.line = line;
     }
 
+    public Long getAreaId() {
+        return areaId;
+    }
+
+    public void setAreaId(final Long areaId) {
+        this.areaId = areaId;
+    }
+
+    public Long getTopoId() {
+        return topoId;
+    }
+
+    public void setTopoId(final Long topoId) {
+        this.topoId = topoId;
+    }
+
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("Route{");
         sb.append("description='").append(description).append('\'');
+        sb.append(", areaId=").append(areaId);
+        sb.append(", topoId=").append(topoId);
         sb.append(", level='").append(level).append('\'');
         sb.append(", sectorName='").append(sectorName).append('\'');
         sb.append(", line=").append(line);
