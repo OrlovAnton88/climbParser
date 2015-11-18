@@ -10,4 +10,6 @@ public interface AreaRepository extends JpaRepository<Area, Long> {
 
     public Area findOneByName(String name);
 
+    public Area findOneById(Long Id);
+
 }

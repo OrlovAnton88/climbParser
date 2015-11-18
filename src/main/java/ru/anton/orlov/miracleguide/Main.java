@@ -33,17 +33,18 @@ public class Main {
 //        System.out.println(set);
 //        System.out.println(set2);
 
-        final long start = System.currentTimeMillis();
+//        final long start = System.currentTimeMillis();
         CragsParserAsync async = new CragsParserAsync();
         final Area area = async.getArea(CragsParser.BASE_URL + CragsParser.STALKER);
-
+//
         String json = JsonUtils.getJson(area);
 
         FileUtils.saveToFile(json, Conf.RESOURSES_PATH, "stalker.json");
+//
+//        final long end = System.currentTimeMillis();
+//
+//        System.out.println("Done in " + (end - start) + " millis");
 
-        final long end = System.currentTimeMillis();
-
-        System.out.println("Done in " + (end - start) + " millis");
 
 //        Done in 46121 millis
 

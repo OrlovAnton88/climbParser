@@ -19,6 +19,7 @@ import java.util.*;
 /**
  * Created by antonorlov on 13/10/15.
  */
+@Deprecated
 public class CragsParser {
 
     public static final String BASE_URL = "https://27crags.com/";

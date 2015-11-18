@@ -4,14 +4,13 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import ru.anton.orlov.miracleguide.model.Coordinates;
 import ru.anton.orlov.miracleguide.parser.model.Area;
 import ru.anton.orlov.miracleguide.parser.model.Topo;
+import ru.anton.orlov.miracleguide.utils.ParseUtils;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.*;
 
 /**
@@ -56,6 +55,14 @@ public class CragsParserAsync {
         final String areaName = doc.select("div.headline h1").first().text();
         area.setName(areaName);
 
+        final Element mapLink = doc.select("div.overhang div.container td.map a").first();
+
+        final String style = mapLink.attr("style");
+        final Optional<Coordinates> coordinatesOptional = ParseUtils.getAreaCoordinates(style);
+        if (coordinatesOptional.isPresent()) {
+            area.setCoordinates(coordinatesOptional.get());
+        }
+
         final Elements tables = doc.select("div.centered table.data.list");
 
         System.out.println("Tables found[" + tables.size() + "]");
@@ -80,6 +87,7 @@ public class CragsParserAsync {
                 Topo topo = new Topo(topoLink, name);
                 //todo:
 
+                //парсим район
                 FutureTask<Topo> task = new FutureTask<Topo>(new TopoParser(topo, area));
                 taskList.add(task);
                 executor.execute(task);
@@ -116,5 +124,6 @@ public class CragsParserAsync {
             final Topo next = toposSet.iterator().next();
             area.setImageLink(next.getImageLink());
         }
+
     }
 }

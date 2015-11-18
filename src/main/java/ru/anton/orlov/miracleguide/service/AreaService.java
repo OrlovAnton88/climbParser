@@ -35,4 +35,8 @@ public class AreaService {
     public Optional<Area> getArea(String name){
         return Optional.ofNullable(areaRepository.findOneByName(name));
     }
+
+    public Optional<Area> getArea(Long Id){
+        return Optional.ofNullable(areaRepository.findOneById(Id));
+    }
 }

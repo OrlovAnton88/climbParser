@@ -1,5 +1,8 @@
 package ru.anton.orlov.miracleguide.parser.model;
 
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.antlr.v4.runtime.misc.Nullable;
 import ru.anton.orlov.miracleguide.utils.ImageUtils;
 import ru.anton.orlov.miracleguide.utils.StringUtils;
 
@@ -27,10 +30,12 @@ public abstract class ParsableEntity {
     @Column
     protected String translitName;
 
+    @JsonIgnore
     @Column
     protected String imageLink;
 
     @Column
+    @Nullable
     protected String imageName;
 
     protected ParsableEntity() {
@@ -46,6 +51,14 @@ public abstract class ParsableEntity {
         if(name!=null){
             this.translitName = StringUtils.transliterate(StringUtils.removeWhitespaces(name)).toLowerCase();
         }
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(final Long id) {
+        this.id = id;
     }
 
     public String getLink() {
@@ -72,6 +85,7 @@ public abstract class ParsableEntity {
         this.imageLink = imageLink;
     }
 
+
     public String getTranslitName() {
         if(translitName == null){
             translitName =  StringUtils.transliterate(StringUtils.removeWhitespaces(name)).toLowerCase();
@@ -83,6 +97,7 @@ public abstract class ParsableEntity {
         this.translitName = translitName;
     }
 
+    @JsonGetter("imageName")
     public String getImageName() {
         if(imageName == null && imageLink != null){
             imageName = ImageUtils.getImageName(imageLink);
