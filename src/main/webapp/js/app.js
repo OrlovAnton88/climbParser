@@ -6,7 +6,10 @@ app.factory("AllAreas", function ($resource) {
     return $resource("/api/areas");
 }).factory("Area", function ($resource) {
     return $resource("/api/area/:id");
-});
+})
+    .factory("AddArea", function ($resource) {
+        return $resource("/api/area/:id");
+    });
 
 
 app.config(function ($routeProvider) {
@@ -25,7 +28,7 @@ app.config(function ($routeProvider) {
         })
         .when('/addJson/', {
             templateUrl: 'pages/manageAreas.html',
-            controller: 'ManageAreaCtrl'
+            controller: 'AddAreaCtrl'
         });
 
 // route for the contact page

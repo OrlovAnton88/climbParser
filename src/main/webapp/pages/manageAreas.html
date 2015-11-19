@@ -4,12 +4,11 @@
 <!--Сыылка на страницу района https://27crags.com-->
 <!--<input type="url" name="areaUrl">-->
 <!--</label>-->
-<form>
-    <label for="basic-url">Сыылка на страницу района</label>
-
+<form name="urlFrom" ng-submit="submit()">
+    <label for="url">Сыылка на страницу района</label>
     <div class="input-group">
         <span class="input-group-addon" id="basic-addon3">https://27crags.com/crags/</span>
-        <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3">
+        <input type="text" class="form-control" id="url" name="url" aria-describedby="URL" data-ng-model="url" required>
     </div>
     <button type="submit" class="btn btn-default">Добавить</button>
 </form>

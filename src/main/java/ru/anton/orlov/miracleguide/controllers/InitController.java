@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import ru.anton.orlov.miracleguide.Conf;
+import ru.anton.orlov.miracleguide.controllers.api.AreaController;
 import ru.anton.orlov.miracleguide.parser.model.Area;
 import ru.anton.orlov.miracleguide.service.AreaService;
 import ru.anton.orlov.miracleguide.utils.FileUtils;
@@ -27,24 +28,23 @@ public class InitController {
 
     private static final Logger log = LoggerFactory.getLogger(AreaController.class);
 
-
     @RequestMapping(value = "/availableAreas", method = RequestMethod.GET)
     public ModelAndView available() {
 
         Map<String, Boolean> map = new HashMap<>();
 
         String stalker = FileUtils.readFile(Conf.RESOURSES_PATH + "stalker.json");
-        if(stalker !=null && !stalker.isEmpty()){
-            Area area  = new Gson().fromJson(stalker, Area.class);
+        if (stalker != null && !stalker.isEmpty()) {
+            Area area = new Gson().fromJson(stalker, Area.class);
             Optional<Area> areaDb = areaService.getArea(area.getName());
-            map.put(area.getTranslitName(),areaDb.isPresent());
+            map.put(area.getTranslitName(), areaDb.isPresent());
         }
 
         String monrepo = FileUtils.readFile(Conf.RESOURSES_PATH + "monrepo.json");
-        if(monrepo !=null && !monrepo.isEmpty()){
-            Area area  = new Gson().fromJson(monrepo, Area.class);
+        if (monrepo != null && !monrepo.isEmpty()) {
+            Area area = new Gson().fromJson(monrepo, Area.class);
             Optional<Area> areaDb = areaService.getArea(area.getName());
-            map.put(area.getTranslitName(),areaDb.isPresent());
+            map.put(area.getTranslitName(), areaDb.isPresent());
 
         }
 

@@ -1,4 +1,4 @@
-package ru.anton.orlov.miracleguide.controllers;
+package ru.anton.orlov.miracleguide.controllers.api;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

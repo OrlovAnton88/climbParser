@@ -1,4 +1,4 @@
-angular.module('MiracleGuideApp.controllers', []).
+angular.module('MiracleGuideApp.controllers', ['ngResource']).
 
     controller("IndexCtrl", function ($scope, AllAreas) {
         console.log("IndexCtrl called");
@@ -16,12 +16,24 @@ angular.module('MiracleGuideApp.controllers', []).
         });
     })
 
-    .controller("ManageAreaCtrl", function ($scope, AreaManager) {
-        console.log("ManageAreaCtrl called");
-        console.log("Id from scope[ " + $routeParams.id + "]");
-        AreaManager.query(function (data) {
-            $scope.areaList = data;
-        });
+    .controller("AddAreaCtrl", function ($scope, $resource) {
+        console.log("AddAreaCtrl called");
+
+
+        $scope.submit = function() {
+            console.log("form submited");
+            var User = $resource('/api/manage/area');
+
+            User.save({url:$scope.url}, function(response) {
+//            $scope.message = response.message;
+                console.log(response.message)
+            });
+        };
+
+//        console.log("Id from scope[ " + $routeParams.id + "]");
+//        AreaManager.query(function (data) {
+//            $scope.areaList = data;
+//        });
     });
 
 
